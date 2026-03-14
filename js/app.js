@@ -24,6 +24,7 @@ const AURAS = [
   { name: "Error",     rarity: "Error",     tier:  9, emoji: "❌", color: "#FF3333", chance: "1/100,000",   description: "ERROR 404: Aura not found. Congratulations?" },
   { name: "Oblivion",  rarity: "Oblivion",  tier: 10, emoji: "🌌", color: "#8080C8", chance: "1/500,000",   description: "The eternal void that consumes everything." },
   { name: "Celestial", rarity: "Celestial", tier: 11, emoji: "💫", color: "#FFF9C4", chance: "1/1,000,000", description: "The rarest aura in all of existence." },
+    { name: "Illusionary", rarity: "Per██ct pu█pet.", tier: 12, emoji: "🔊", color: "#0B03FC", chance: "1/10,000,000", description: "███'█ perfect puppet." },
 ];
 
 const RARITIES = ["Common","Uncommon","Rare","Epic","Legendary","Divine","Heavenly","Glitched","Error","Oblivion","Celestial"];

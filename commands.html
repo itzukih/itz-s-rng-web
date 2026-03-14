@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commands — Itz's RNG</title>
+  <meta name="description" content="Complete command reference for Itz's RNG Discord bot.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎲</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">🎲 Itz's <span>RNG</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="auras.html">Auras</a></li>
+      <li><a href="commands.html">Commands</a></li>
+      <li><a href="leaderboard.html">Leaderboard</a></li>
+    </ul>
+    <a href="#" id="invite-nav" class="nav-cta">Add to Server ↗</a>
+    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+<section class="section">
+  <div class="container">
+
+    <div class="section-header">
+      <p class="label">Slash commands</p>
+      <h2>Command Reference</h2>
+      <p>All commands use Discord slash syntax. Type <span class="mono">/</span> and start typing the command name.</p>
+    </div>
+
+    <div class="commands-layout">
+
+      <!-- Sidebar -->
+      <aside class="commands-sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+          <li><a href="#spinning">Spinning</a></li>
+          <li><a href="#inventory">Inventory</a></li>
+          <li><a href="#information">Information</a></li>
+          <li><a href="#admin">Admin</a></li>
+        </ul>
+      </aside>
+
+      <!-- Command groups -->
+      <div>
+
+        <!-- SPINNING -->
+        <div class="cmd-group" id="spinning">
+          <div class="cmd-group-header">
+            <span class="cmd-group-icon">🎲</span>
+            <h3>Spinning</h3>
+          </div>
+          <div class="cmd-list">
+            <div class="cmd-item">
+              <span class="cmd-name">/spin</span>
+              <div>
+                <div class="cmd-desc">Spin once for a random aura. Results are instant with full rarity details.</div>
+              </div>
+            </div>
+            <div class="cmd-item">
+              <span class="cmd-name">/spin<span class="cmd-args"> amount:[1–10]</span></span>
+              <div>
+                <div class="cmd-desc">Spin multiple times at once. Max 10 spins per command. Shows a summary with your best result.</div>
+              </div>
+            </div>
+            <div class="cmd-item">
+              <span class="cmd-name">/daily</span>
+              <div>
+                <div class="cmd-desc">Claim your daily reward. Grants a <strong>x1.5 luck multiplier</strong> that boosts your odds on Legendary+ auras. Resets every 24 hours.</div>
+              </div>
+            </div>
+            <div class="cmd-item">
+              <span class="cmd-name">/luck</span>
+              <div>
+                <div class="cmd-desc">View your current luck multiplier. Luck affects tier 5 (Legendary) auras and above.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- INVENTORY -->
+        <div class="cmd-group" id="inventory">
+          <div class="cmd-group-header">
+            <span class="cmd-group-icon">🎒</span>
+            <h3>Inventory</h3>
+          </div>
+          <div class="cmd-list">
+            <div class="cmd-item">
+              <span class="cmd-name">/inventory</span>
+              <div>
+                <div class="cmd-desc">View your aura collection, sorted rarest first. Shows quantities and your equipped aura.</div>
+              </div>
+            </div>
+            <div class="cmd-item">
+              <span class="cmd-name">/inventory<span class="cmd-args"> user:[@user]</span></span>
+              <div>
+                <div class="cmd-desc">View another player's inventory and equipped aura.</div>
+              </div>
+            </div>
+            <div class="cmd-item">
+              <span class="cmd-name">/equip<span class="cmd-args"> aura:[name]</span></span>
+              <div>
+                <div class="cmd-desc">Equip an aura from your inventory. Your Discord role is automatically set to <span class="mono">>> AuraName <<</span>. If you had another aura role, it's swapped out instantly. Supports autocomplete.</div>
+              </div>
+            </div>
+            <div class="cmd-item">
+              <span class="cmd-name">/unequip</span>
+              <div>
+                <div class="cmd-desc">Remove your equipped aura and delete your aura role from Discord.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- INFORMATION -->
+        <div class="cmd-group" id="information">
+          <div class="cmd-group-header">
+            <span class="cmd-group-icon">📋</span>
+            <h3>Information</h3>
+          </div>
+          <div class="cmd-list">
+            <div class="cmd-item">
+              <span class="cmd-name">/profile</span>
+              <div>
+                <div class="cmd-desc">View your player profile: total spins, unique auras collected, luck multiplier, equipped aura and your rarest find.</div>
+              </div>
+            </div>
+            <div class="cmd-item">
+              <span class="cmd-name">/profile<span class="cmd-args"> user:[@user]</span></span>
+              <div>
+                <div class="cmd-desc">View another player's profile.</div>
+              </div>
+            </div>
+            <div class="cmd-item">
+              <span class="cmd-name">/auras</span>
+              <div>
+                <div class="cmd-desc">List all 19 available auras grouped by rarity, with drop chances shown.</div>
+              </div>
+            </div>
+            <div class="cmd-item">
+              <span class="cmd-name">/aura_info<span class="cmd-args"> aura:[name]</span></span>
+              <div>
+                <div class="cmd-desc">Detailed info for a specific aura: description, rarity, chance, tier and Discord role name. Supports autocomplete.</div>
+              </div>
+            </div>
+            <div class="cmd-item">
+              <span class="cmd-name">/leaderboard</span>
+              <div>
+                <div class="cmd-desc">Top 10 players in the server ranked by total spins.</div>
+              </div>
+            </div>
+            <div class="cmd-item">
+              <span class="cmd-name">/stats</span>
+              <div>
+                <div class="cmd-desc">Server-wide statistics: total players, total spins and the 5 most-rolled auras.</div>
+              </div>
+            </div>
+            <div class="cmd-item">
+              <span class="cmd-name">/help</span>
+              <div>
+                <div class="cmd-desc">In-Discord command list with quick descriptions.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADMIN -->
+        <div class="cmd-group" id="admin">
+          <div class="cmd-group-header">
+            <span class="cmd-group-icon">⚙️</span>
+            <h3>Admin <span class="badge badge-rare" style="font-size:0.7rem;vertical-align:middle;">Manage Server</span></h3>
+          </div>
+          <p style="font-size:0.875rem;margin-bottom:1.25rem;">Requires the <strong>Manage Server</strong> Discord permission.</p>
+          <div class="cmd-list">
+            <div class="cmd-item">
+              <span class="cmd-name">/admin give_aura<span class="cmd-args"> user aura [amount]</span></span>
+              <div>
+                <div class="cmd-desc">Add an aura directly to a user's inventory. Amount defaults to 1.</div>
+              </div>
+            </div>
+            <div class="cmd-item">
+              <span class="cmd-name">/admin remove_aura<span class="cmd-args"> user aura</span></span>
+              <div>
+                <div class="cmd-desc">Remove an aura from a user's inventory.</div>
+              </div>
+            </div>
+            <div class="cmd-item">
+              <span class="cmd-name">/admin set_luck<span class="cmd-args"> user multiplier</span></span>
+              <div>
+                <div class="cmd-desc">Set a user's luck multiplier (0.1 – 10.0). Affects Legendary+ aura rates.</div>
+              </div>
+            </div>
+            <div class="cmd-item">
+              <span class="cmd-name">/admin reset<span class="cmd-args"> user</span></span>
+              <div>
+                <div class="cmd-desc">Wipe all data for a user: inventory, spin count, luck and equipped aura. Removes their aura role too.</div>
+              </div>
+            </div>
+            <div class="cmd-item">
+              <span class="cmd-name">/admin create_roles</span>
+              <div>
+                <div class="cmd-desc">Create all 19 aura roles (<span class="mono">>> Name <<</span>) in one go. Skips any that already exist. Run this on first setup.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /groups -->
+    </div><!-- /layout -->
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span class="footer-logo">🎲 Itz's <span>RNG</span></span>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="auras.html">Auras</a></li>
+      <li><a href="commands.html">Commands</a></li>
+      <li><a href="leaderboard.html">Leaderboard</a></li>
+      <li><a href="terms.html">Terms</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 ItzDev</span>
+  </div>
+</footer>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script>
+  document.getElementById("invite-nav").href = CONFIG.INVITE_URL;
+
+  // Sidebar active on scroll
+  const groups   = document.querySelectorAll(".cmd-group");
+  const sideLinks= document.querySelectorAll(".sidebar-nav a");
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        sideLinks.forEach(l => l.classList.remove("active"));
+        const active = document.querySelector(`.sidebar-nav a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add("active");
+      }
+    });
+  }, { rootMargin: "-30% 0px -60% 0px" });
+
+  groups.forEach(g => observer.observe(g));
+</script>
+</body>
+</html>

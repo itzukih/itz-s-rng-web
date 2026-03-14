@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — Itz's RNG</title>
+  <meta name="description" content="Terms of Service for Itz's RNG Discord bot.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎲</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .legal-wrapper {
+      max-width: 740px;
+    }
+    .legal-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .legal-meta span {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .legal-toc {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .legal-toc .toc-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.85rem;
+    }
+    .legal-toc ol {
+      list-style: decimal;
+      padding-left: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .legal-toc ol li a {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      transition: color 0.15s;
+    }
+    .legal-toc ol li a:hover { color: var(--accent); }
+
+    .legal-section {
+      margin-bottom: 3rem;
+      scroll-margin-top: calc(var(--nav-h) + 1.5rem);
+    }
+    .legal-section h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+    .legal-section h3 .section-num {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+    }
+    .legal-section p {
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .legal-section p:last-child { margin-bottom: 0; }
+    .legal-section ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin: 0.5rem 0 0.75rem;
+    }
+    .legal-section ul li {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      padding-left: 1.1rem;
+      position: relative;
+      line-height: 1.65;
+    }
+    .legal-section ul li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--text-dim);
+    }
+    .legal-section a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .legal-divider {
+      border: none;
+      border-top: 1px solid var(--border-soft);
+      margin: 0 0 3rem;
+    }
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+    .contact-card p {
+      margin-bottom: 0.5rem;
+    }
+    .contact-card .contact-link {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .contact-card .contact-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">🎲 Itz's <span>RNG</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="auras.html">Auras</a></li>
+      <li><a href="commands.html">Commands</a></li>
+      <li><a href="leaderboard.html">Leaderboard</a></li>
+      <li><a href="terms.html">Terms</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+    </ul>
+    <a href="#" id="invite-nav" class="nav-cta">Add to Server ↗</a>
+    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+<section class="section">
+  <div class="container legal-wrapper">
+
+    <div class="section-header">
+      <p class="label">Legal</p>
+      <h2>Terms of Service</h2>
+    </div>
+
+    <div class="legal-meta">
+      <span>Effective date: January 1, 2026</span>
+      <span>Last updated: March 14, 2026</span>
+    </div>
+
+    <!-- Table of contents -->
+    <div class="legal-toc">
+      <div class="toc-title">Table of contents</div>
+      <ol>
+        <li><a href="#acceptance">Acceptance of Terms</a></li>
+        <li><a href="#description">Description of Service</a></li>
+        <li><a href="#eligibility">Eligibility</a></li>
+        <li><a href="#usage">Acceptable Use</a></li>
+        <li><a href="#data">Data and Content</a></li>
+        <li><a href="#availability">Availability and Modifications</a></li>
+        <li><a href="#disclaimer">Disclaimers</a></li>
+        <li><a href="#liability">Limitation of Liability</a></li>
+        <li><a href="#termination">Termination</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ol>
+    </div>
+
+    <!-- §1 -->
+    <div class="legal-section" id="acceptance">
+      <h3><span class="section-num">01</span> Acceptance of Terms</h3>
+      <p>By adding Itz's RNG ("the Bot") to your Discord server, or by using any of its commands, you agree to be bound by these Terms of Service ("Terms"). If you do not agree with any part of these Terms, you must stop using the Bot immediately.</p>
+      <p>These Terms apply to all users of the Bot, including server administrators, moderators and regular members.</p>
+    </div>
+    <hr class="legal-divider">
+
+    <!-- §2 -->
+    <div class="legal-section" id="description">
+      <h3><span class="section-num">02</span> Description of Service</h3>
+      <p>Itz's RNG is a Discord bot inspired by the Roblox game Sols RNG. It provides the following features within Discord servers:</p>
+      <ul>
+        <li>A random aura spin system with 19 different auras across 11 rarity tiers</li>
+        <li>An inventory system that stores collected auras per user per server</li>
+        <li>An aura equipping system that automatically assigns Discord roles</li>
+        <li>A luck multiplier system and daily reward mechanism</li>
+        <li>Server-wide leaderboards and statistics</li>
+        <li>Administrative commands for server moderators</li>
+      </ul>
+      <p>The Bot operates on Discord's platform and is subject to <a href="https://discord.com/terms" target="_blank" rel="noopener">Discord's Terms of Service</a> in addition to these Terms.</p>
+    </div>
+    <hr class="legal-divider">
+
+    <!-- §3 -->
+    <div class="legal-section" id="eligibility">
+      <h3><span class="section-num">03</span> Eligibility</h3>
+      <p>You must meet the following conditions to use the Bot:</p>
+      <ul>
+        <li>You must be at least 13 years old, or the minimum age required by Discord in your country</li>
+        <li>You must have a valid Discord account in good standing</li>
+        <li>You must comply with Discord's Terms of Service and Community Guidelines</li>
+        <li>Server administrators who add the Bot must have the necessary permissions in their server</li>
+      </ul>
+    </div>
+    <hr class="legal-divider">
+
+    <!-- §4 -->
+    <div class="legal-section" id="usage">
+      <h3><span class="section-num">04</span> Acceptable Use</h3>
+      <p>You agree not to use the Bot to:</p>
+      <ul>
+        <li>Spam commands in a way that disrupts other users or the Bot's normal operation</li>
+        <li>Attempt to exploit, reverse-engineer or abuse the Bot's systems</li>
+        <li>Use automated scripts or macros to interact with the Bot</li>
+        <li>Harass, bully or target other users through Bot features</li>
+        <li>Attempt to bypass cooldowns, luck systems or other game mechanics through exploits</li>
+        <li>Use the Bot in servers that violate Discord's Terms of Service or Community Guidelines</li>
+      </ul>
+      <p>We reserve the right to restrict or ban access to the Bot for any user or server that violates these rules, at our sole discretion and without prior notice.</p>
+    </div>
+    <hr class="legal-divider">
+
+    <!-- §5 -->
+    <div class="legal-section" id="data">
+      <h3><span class="section-num">05</span> Data and Content</h3>
+      <p>The Bot stores certain data to provide its service. Please refer to our <a href="privacy.html">Privacy Policy</a> for full details on what data is collected, how it is used and your rights.</p>
+      <p>In-Bot items such as auras, spin counts and luck multipliers have no real-world monetary value. They are virtual game items that can be modified, removed or reset at any time by the Bot's administrators or by server administrators using admin commands.</p>
+    </div>
+    <hr class="legal-divider">
+
+    <!-- §6 -->
+    <div class="legal-section" id="availability">
+      <h3><span class="section-num">06</span> Availability and Modifications</h3>
+      <p>We strive to keep the Bot available at all times, but we do not guarantee uninterrupted service. The Bot may be temporarily unavailable due to maintenance, updates, technical issues or circumstances beyond our control.</p>
+      <p>We reserve the right to:</p>
+      <ul>
+        <li>Modify, update or discontinue any feature of the Bot at any time</li>
+        <li>Change the aura pool, rarity weights or drop rates</li>
+        <li>Update these Terms at any time — continued use of the Bot after changes constitutes acceptance</li>
+        <li>Shut down the Bot permanently with or without prior notice</li>
+      </ul>
+    </div>
+    <hr class="legal-divider">
+
+    <!-- §7 -->
+    <div class="legal-section" id="disclaimer">
+      <h3><span class="section-num">07</span> Disclaimers</h3>
+      <p>The Bot is provided "as is" and "as available" without warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose or non-infringement.</p>
+      <p>Itz's RNG is an independent project and is not affiliated with, endorsed by, or sponsored by Discord Inc., Roblox Corporation, or the creators of Sols RNG.</p>
+    </div>
+    <hr class="legal-divider">
+
+    <!-- §8 -->
+    <div class="legal-section" id="liability">
+      <h3><span class="section-num">08</span> Limitation of Liability</h3>
+      <p>To the fullest extent permitted by applicable law, the developers of Itz's RNG shall not be liable for any indirect, incidental, special, consequential or punitive damages arising from your use of, or inability to use, the Bot or its services.</p>
+      <p>This includes but is not limited to loss of data, loss of virtual items, server disruptions or any other issues arising from the use of the Bot.</p>
+    </div>
+    <hr class="legal-divider">
+
+    <!-- §9 -->
+    <div class="legal-section" id="termination">
+      <h3><span class="section-num">09</span> Termination</h3>
+      <p>We may suspend or terminate your access to the Bot at any time, without prior notice, for conduct that we believe violates these Terms or is otherwise harmful to the Bot, its users or third parties.</p>
+      <p>You may stop using the Bot at any time by removing it from your server or ceasing to interact with it. You may request deletion of your stored data by contacting us (see below).</p>
+    </div>
+    <hr class="legal-divider">
+
+    <!-- §10 -->
+    <div class="legal-section" id="contact">
+      <h3><span class="section-num">10</span> Contact</h3>
+      <p>If you have questions about these Terms or wish to report an issue, you can reach us through:</p>
+      <div class="contact-card">
+        <p>Discord server or direct message to the bot developer.</p>
+        <p style="margin-top:0.5rem;font-size:0.82rem;color:var(--text-dim);">We aim to respond within 72 hours.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span class="footer-logo">🎲 Itz's <span>RNG</span></span>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="auras.html">Auras</a></li>
+      <li><a href="commands.html">Commands</a></li>
+      <li><a href="leaderboard.html">Leaderboard</a></li>
+      <li><a href="terms.html">Terms</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 ItzDev</span>
+  </div>
+</footer>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script>
+  document.getElementById("invite-nav").href = CONFIG.INVITE_URL;
+</script>
+</body>
+</html>

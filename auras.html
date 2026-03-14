@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auras — Itz's RNG</title>
+  <meta name="description" content="All 19 auras in Itz's RNG — from Common to Celestial. Chances, descriptions and Discord roles.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎲</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">🎲 Itz's <span>RNG</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="auras.html">Auras</a></li>
+      <li><a href="commands.html">Commands</a></li>
+      <li><a href="leaderboard.html">Leaderboard</a></li>
+    </ul>
+    <a href="#" id="invite-nav" class="nav-cta">Add to Server ↗</a>
+    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+
+  <section class="section">
+    <div class="container">
+
+      <div class="section-header">
+        <p class="label">19 auras · 11 rarity tiers</p>
+        <h2>Aura Collection</h2>
+        <p>Every aura you can roll, with exact chances and Discord role names.</p>
+      </div>
+
+      <!-- Filter bar -->
+      <div class="filter-bar" id="filter-bar">
+        <button class="filter-btn active" data-rarity="all">All</button>
+      </div>
+
+      <!-- Aura grid -->
+      <div class="auras-grid" id="auras-grid"></div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-logo">🎲 Itz's <span>RNG</span></span>
+      <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="auras/">Auras</a></li>
+      <li><a href="commands/">Commands</a></li>
+      <li><a href="leaderboard/">Leaderboard</a></li>
+      <li><a href="terms/">Terms</a></li>
+      <li><a href="privacy/">Privacy</a></li>
+      </ul>
+    <span class="footer-copy">© 2026 ItzDev</span>
+    </div>
+  </footer>
+
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script>
+  document.getElementById("invite-nav").href = CONFIG.INVITE_URL;
+
+  const grid    = document.getElementById("auras-grid");
+  const filterBar = document.getElementById("filter-bar");
+
+  // Build filter buttons
+  RARITIES.forEach(r => {
+    const btn = document.createElement("button");
+    btn.className = "filter-btn";
+    btn.dataset.rarity = r;
+    btn.textContent = r;
+    filterBar.appendChild(btn);
+  });
+
+  // Build aura cards
+  AURAS.forEach(a => {
+    const card = document.createElement("div");
+    card.className = "aura-card";
+    card.dataset.rarity = a.rarity;
+    card.style.setProperty("--aura-color", a.color);
+
+    card.innerHTML = `
+      <div class="aura-emoji">${a.emoji}</div>
+      <div class="aura-info">
+        <div class="aura-name">
+          ${a.name}
+          <span class="badge ${rarityClass(a.rarity)}">${a.rarity}</span>
+        </div>
+        <div class="aura-desc">${a.description}</div>
+        <div class="aura-meta">
+          <span class="aura-chance">🎲 ${a.chance}</span>
+          <span class="aura-role">>> ${a.name} <<</span>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  // Filter logic
+  filterBar.addEventListener("click", e => {
+    const btn = e.target.closest(".filter-btn");
+    if (!btn) return;
+
+    filterBar.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const selected = btn.dataset.rarity;
+    document.querySelectorAll(".aura-card").forEach(card => {
+      const show = selected === "all" || card.dataset.rarity === selected;
+      card.dataset.hidden = show ? "false" : "true";
+    });
+  });
+</script>
+</body>
+</html>

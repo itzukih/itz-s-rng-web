@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Itz's RNG — Discord Bot</title>
+  <meta name="description" content="Sols RNG-inspired Discord bot. Spin for rare auras, equip the best ones and flex your role in the server.">
+  <meta property="og:title" content="Itz's RNG">
+  <meta property="og:description" content="Spin for rare auras. 19 auras from Common to 1-in-a-million Celestial.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎲</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ── NAV ─────────────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">🎲 Itz's <span>RNG</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="auras.html">Auras</a></li>
+      <li><a href="commands.html">Commands</a></li>
+      <li><a href="leaderboard.html">Leaderboard</a></li>
+    </ul>
+    <a href="#" id="invite-btn-nav" class="nav-cta">Add to Server ↗</a>
+    <button class="nav-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── HERO ────────────────────────────────────────────────── -->
+<div class="page-wrapper">
+<section class="hero">
+  <div class="container">
+
+    <div class="hero-eyebrow">
+      <span class="status-dot"></span>
+      Bot Online · Sols RNG
+    </div>
+
+    <h1>Spin. Collect.<br><em>Dominate.</em></h1>
+    <p>The ultimate Sols RNG experience on Discord. 19 auras from Common to the mythical 1-in-a-million Celestial — every spin counts.</p>
+
+    <div class="hero-actions">
+      <a id="invite-btn" href="#" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        Add to Server
+      </a>
+      <a href="auras.html" class="btn btn-outline">Browse Auras →</a>
+    </div>
+
+    <!-- Live stats -->
+    <div class="hero-stats" id="hero-stats">
+      <div class="stat-block">
+        <div class="stat-value" id="stat-spins">—</div>
+        <div class="stat-label">Total Spins</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-value" id="stat-players">—</div>
+        <div class="stat-label">Players</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-value">19</div>
+        <div class="stat-label">Auras</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── FEATURES ────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="label">What's inside</p>
+      <h2>Everything you need</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon">🎲</div>
+        <h3>Fast Spinning</h3>
+        <p>Spin up to 10 times at once with <span class="mono">/spin</span>. Zero lag, instant results.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🏷️</div>
+        <h3>Auto Roles</h3>
+        <p>Equip an aura and get the role <span class="mono">>> AuraName <<</span> instantly. It swaps when you change.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🍀</div>
+        <h3>Luck System</h3>
+        <p>Daily rewards boost your multiplier. Higher luck = better odds on Legendary+ auras.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📊</div>
+        <h3>Server Stats</h3>
+        <p>Track total spins, top players and the most rolled auras across the whole server.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🎒</div>
+        <h3>Full Inventory</h3>
+        <p>Every aura you've ever rolled is saved. View your collection or anyone else's.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">⚙️</div>
+        <h3>Admin Tools</h3>
+        <p>Give auras, set luck, create all roles at once, reset users — full control.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── AURA PREVIEW ─────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <p class="label">Rarity tiers</p>
+      <h2>From Common to Celestial</h2>
+      <p>19 auras across 11 rarity tiers. The rarest? A 1-in-a-million chance.</p>
+    </div>
+    <div id="rarity-showcase" style="display:flex;flex-wrap:wrap;gap:0.5rem;"></div>
+    <div style="margin-top:1.5rem;">
+      <a href="auras.html" class="btn btn-outline">See all 19 auras →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── CTA BANNER ───────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="card" style="text-align:center;padding:3rem 2rem;background:var(--surface);">
+      <div style="font-size:2.5rem;margin-bottom:1rem;">🎲</div>
+      <h2 style="margin-bottom:0.75rem;">Ready to spin?</h2>
+      <p style="margin-bottom:2rem;max-width:38ch;margin-left:auto;margin-right:auto;">
+        Add the bot to your server and start collecting auras. Your first Celestial is waiting.
+      </p>
+      <a id="invite-btn-bottom" href="#" class="btn btn-primary">Add Itz's RNG to Discord</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <span class="footer-logo">🎲 Itz's <span>RNG</span></span>
+    <ul class="footer-links">
+      <li><a href="auras.html">Auras</a></li>
+      <li><a href="commands.html">Commands</a></li>
+      <li><a href="leaderboard.html">Leaderboard</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 ItzDev</span>
+  </div>
+</footer>
+
+</div><!-- /page-wrapper -->
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script>
+  // Set invite links
+  document.querySelectorAll("[id^='invite-btn']").forEach(el => {
+    el.href = CONFIG.INVITE_URL;
+  });
+
+  // Rarity showcase pills
+  const showcase = document.getElementById("rarity-showcase");
+  AURAS.forEach(a => {
+    const pill = document.createElement("span");
+    pill.className = `badge ${rarityClass(a.rarity)}`;
+    pill.textContent = `${a.emoji} ${a.name}`;
+    showcase.appendChild(pill);
+  });
+
+  // ── Odometer: only changed digits slide up ──────────────────
+
+  // Inject odometer CSS once
+  const _odoStyle = document.createElement("style");
+  _odoStyle.textContent = `
+    .odo {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-display);
+      font-size: inherit;
+      font-weight: inherit;
+      color: inherit;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    .odo-digit {
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      /* height and width set dynamically via JS after first render */
+    }
+    .odo-digit span {
+      display: block;
+      position: absolute;
+      left: 0; right: 0;
+      text-align: center;
+      line-height: inherit;
+      white-space: nowrap;
+    }
+    .odo-digit span.cur  { top: 0; position: relative; }
+    .odo-digit span.next { position: absolute; top: 100%; left: 0; right: 0; }
+    .odo-digit.rolling span.cur  { animation: odo-out 0.35s cubic-bezier(0.4,0,0.2,1) forwards; }
+    .odo-digit.rolling span.next { animation: odo-in  0.35s cubic-bezier(0.4,0,0.2,1) forwards; }
+    @keyframes odo-out {
+      from { transform: translateY(0);    opacity: 1; }
+      to   { transform: translateY(-100%); opacity: 0; }
+    }
+    @keyframes odo-in {
+      from { transform: translateY(0);   opacity: 0; }
+      to   { transform: translateY(-100%); opacity: 1; }
+    }
+  `;
+  document.head.appendChild(_odoStyle);
+
+  // Build an odometer element from a number string
+  function buildOdo(str) {
+    const wrap = document.createElement("span");
+    wrap.className = "odo stat-value";
+    for (const ch of str) {
+      const d = document.createElement("span");
+      d.className = "odo-digit";
+      const cur = document.createElement("span");
+      cur.className = "cur";
+      cur.textContent = ch;
+      d.appendChild(cur);
+      wrap.appendChild(d);
+    }
+    // Lock each digit's dimensions after a paint so overflow:hidden
+    // clips correctly without squishing the visible character
+    requestAnimationFrame(() => {
+      wrap.querySelectorAll(".odo-digit").forEach(d => {
+        const r = d.getBoundingClientRect();
+        if (r.width > 0) {
+          d.style.width  = r.width  + "px";
+          d.style.height = r.height + "px";
+        }
+      });
+    });
+    return wrap;
+  }
+
+  // Update an existing odometer to a new string, animating only changed digits
+  function updateOdo(odoEl, newStr) {
+    const digits = odoEl.querySelectorAll(".odo-digit");
+    const oldStr = Array.from(digits).map(d => d.querySelector(".cur").textContent).join("");
+
+    // If length changed, rebuild from scratch
+    if (oldStr.length !== newStr.length) {
+      const fresh = buildOdo(newStr);
+      odoEl.replaceWith(fresh);
+      return fresh;
+    }
+
+    for (let i = 0; i < newStr.length; i++) {
+      const d   = digits[i];
+      const cur = d.querySelector(".cur");
+      if (cur.textContent === newStr[i]) continue; // same digit, skip
+
+      // Create next span and trigger roll
+      const next = document.createElement("span");
+      next.className = "next";
+      next.textContent = newStr[i];
+      d.appendChild(next);
+      d.classList.add("rolling");
+
+      // After animation: swap cur → next, clean up
+      next.addEventListener("animationend", () => {
+        cur.textContent = newStr[i];
+        next.remove();
+        d.classList.remove("rolling");
+      }, { once: true });
+    }
+    return odoEl;
+  }
+
+  // Init odometer elements (replace plain text divs)
+  const spinsEl   = document.getElementById("stat-spins");
+  const playersEl = document.getElementById("stat-players");
+
+  let odoSpins   = buildOdo("—");
+  let odoPlayers = buildOdo("—");
+  spinsEl.replaceWith(odoSpins);
+  playersEl.replaceWith(odoPlayers);
+  // Keep references via id reassignment
+  odoSpins.id   = "stat-spins";
+  odoPlayers.id = "stat-players";
+
+  let prevSpins   = null;
+  let prevPlayers = null;
+
+  async function loadStats() {
+    try {
+      const data    = await apiFetch("/api/stats");
+      const spins   = data.total_spins || 0;
+      const players = data.total_users || 0;
+
+      const spinsStr   = fmt(spins);
+      const playersStr = fmt(players);
+
+      if (prevSpins === null) {
+        // First load: build fresh odometers with real values
+        odoSpins   = buildOdo(spinsStr);
+        odoPlayers = buildOdo(playersStr);
+        document.getElementById("stat-spins").replaceWith(odoSpins);
+        document.getElementById("stat-players").replaceWith(odoPlayers);
+        odoSpins.id   = "stat-spins";
+        odoPlayers.id = "stat-players";
+      } else {
+        updateOdo(odoSpins,   spinsStr);
+        updateOdo(odoPlayers, playersStr);
+      }
+
+      prevSpins   = spins;
+      prevPlayers = players;
+
+      document.querySelectorAll(".status-dot").forEach(d => {
+        d.style.background = "";
+        d.style.boxShadow  = "";
+      });
+    } catch {
+      document.querySelectorAll(".status-dot").forEach(d => {
+        d.style.background = "var(--text-dim)";
+        d.style.boxShadow  = "none";
+      });
+    }
+  }
+
+  loadStats();
+  setInterval(loadStats, 10_000);
+</script>
+</body>
+</html>

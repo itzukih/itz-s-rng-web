@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leaderboard — Itz's RNG</title>
+  <meta name="description" content="Top players in Itz's RNG by total spins.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎲</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">🎲 Itz's <span>RNG</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="auras.html">Auras</a></li>
+      <li><a href="commands.html">Commands</a></li>
+      <li><a href="leaderboard.html">Leaderboard</a></li>
+    </ul>
+    <a href="#" id="invite-nav" class="nav-cta">Add to Server ↗</a>
+    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+<section class="section">
+  <div class="container lb-container">
+
+    <div class="section-header">
+      <p class="label">Live rankings</p>
+      <h2>Leaderboard</h2>
+      <p>Top players ranked by total spins. Updated in real time.</p>
+    </div>
+
+    <!-- Header bar -->
+    <div class="lb-header-bar">
+      <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;color:var(--text-muted);">
+        <span class="status-dot"></span>
+        <span id="last-updated">Fetching data...</span>
+      </div>
+      <button class="lb-refresh" id="refresh-btn" title="Refresh">
+        <svg id="refresh-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M23 4v6h-6"/><path d="M1 20v-6h6"/>
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+        </svg>
+        Refresh
+      </button>
+    </div>
+
+    <!-- List -->
+    <div class="lb-list" id="lb-list">
+      <!-- Skeleton -->
+      <div class="lb-skeleton" id="lb-skeleton">
+        <!-- Built by JS -->
+      </div>
+    </div>
+
+    <!-- Error state (hidden by default) -->
+    <div class="empty-state" id="lb-error" style="display:none;">
+      <div class="empty-icon">⚠️</div>
+      <h3>Couldn't load leaderboard</h3>
+      <p>Make sure your bot is running and <span class="mono">BOT_URL</span> is set correctly in <span class="mono">js/config.js</span>.</p>
+      <div style="margin-top:1rem;">
+        <button class="btn btn-outline" onclick="loadLeaderboard()">Try again</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span class="footer-logo">🎲 Itz's <span>RNG</span></span>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="auras.html">Auras</a></li>
+      <li><a href="commands.html">Commands</a></li>
+      <li><a href="leaderboard.html">Leaderboard</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="terms.html">Terms</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 ItzDev</span>
+  </div>
+</footer>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script>
+  document.getElementById("invite-nav").href = CONFIG.INVITE_URL;
+
+  const listEl     = document.getElementById("lb-list");
+  const skeletonEl = document.getElementById("lb-skeleton");
+  const errorEl    = document.getElementById("lb-error");
+  const updatedEl  = document.getElementById("last-updated");
+  const refreshBtn = document.getElementById("refresh-btn");
+  const refreshIcon= document.getElementById("refresh-icon");
+
+  const MEDALS = ["🥇", "🥈", "🥉"];
+  const TOP_CLASSES = ["top-1", "top-2", "top-3"];
+
+  // Build skeleton
+  for (let i = 0; i < 10; i++) {
+    skeletonEl.innerHTML += `
+      <div class="lb-item">
+        <div class="lb-rank lb-rank-skel"><div class="skeleton-text" style="width:20px;height:14px;"></div></div>
+        <div class="lb-avatar"><div class="skeleton-text" style="width:40px;height:40px;border-radius:50%;"></div></div>
+        <div class="lb-info">
+          <div class="skeleton-text sk-name"></div>
+          <div class="skeleton-text sk-eq" style="margin-top:6px;"></div>
+        </div>
+        <div><div class="skeleton-text sk-spin"></div></div>
+      </div>`;
+  }
+
+  function showSkeleton()    { skeletonEl.style.display = "block"; errorEl.style.display = "none"; }
+  function hideSkeleton()    { skeletonEl.style.display = "none"; }
+  function showError()       { errorEl.style.display = "block"; }
+
+  async function loadLeaderboard() {
+    showSkeleton();
+    refreshBtn.classList.add("spinning");
+    updatedEl.textContent = "Fetching...";
+
+    // Remove any previously rendered real items
+    listEl.querySelectorAll(".lb-real").forEach(el => el.remove());
+
+    try {
+      const data = await apiFetch("/api/leaderboard");
+      hideSkeleton();
+
+      if (!data.players || data.players.length === 0) {
+        errorEl.querySelector("h3").textContent = "No data yet";
+        errorEl.querySelector("p").textContent  = "Nobody has spun in this server yet. Be the first!";
+        showError();
+        return;
+      }
+
+      data.players.forEach((player, i) => {
+        const item = document.createElement("div");
+        item.className = `lb-item lb-real${i < 3 ? " " + TOP_CLASSES[i] : ""}`;
+
+        const rankLabel = i < 3 ? MEDALS[i] : `#${i + 1}`;
+        const auraInfo  = player.equipped_aura
+          ? `${AURAS.find(a=>a.name===player.equipped_aura)?.emoji||'❓'} ${player.equipped_aura}`
+          : "No aura equipped";
+        const avatarHTML = player.avatar_url
+          ? `<img src="${player.avatar_url}" alt="" loading="lazy">`
+          : player.username?.[0]?.toUpperCase() || "?";
+
+        item.innerHTML = `
+          <div class="lb-rank">${rankLabel}</div>
+          <div class="lb-avatar">${typeof avatarHTML === 'string' && avatarHTML.startsWith('<img') ? avatarHTML : `<span>${avatarHTML}</span>`}</div>
+          <div class="lb-info">
+            <div class="lb-username">${escHtml(player.username || `User ${player.user_id}`)}</div>
+            <div class="lb-equipped">${auraInfo}</div>
+          </div>
+          <div class="lb-spins">
+            ${fmt(player.total_spins)}
+            <span class="spins-label">spins</span>
+          </div>
+        `;
+        listEl.appendChild(item);
+      });
+
+      const now = new Date();
+      updatedEl.textContent = `Updated ${now.getHours().toString().padStart(2,"0")}:${now.getMinutes().toString().padStart(2,"0")}`;
+
+    } catch (e) {
+      hideSkeleton();
+      showError();
+      updatedEl.textContent = "Failed to load";
+    } finally {
+      refreshBtn.classList.remove("spinning");
+    }
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  refreshBtn.addEventListener("click", loadLeaderboard);
+  loadLeaderboard();
+  setInterval(loadLeaderboard, 60_000); // auto-refresh every minute
+</script>
+</body>
+</html>

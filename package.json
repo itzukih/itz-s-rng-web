@@ -1,0 +1,9 @@
+{
+  "name": "itzs-rng-web",
+  "version": "1.0.0",
+  "description": "Website for Itz's RNG Discord bot",
+  "private": true,
+  "dependencies": {
+    "@netlify/functions": "^2.8.0"
+  }
+}

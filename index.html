@@ -179,56 +179,55 @@
     showcase.appendChild(pill);
   });
 
-  // ── Odometer: only changed digits slide up ──────────────────
+  // ── Odometer — only changed digits animate ─────────────────
+  // Uses opacity + translateY only (no overflow:hidden, no size measuring)
+  // Works reliably on all browsers and before fonts finish loading.
 
-  // Inject odometer CSS once
   const _odoStyle = document.createElement("style");
   _odoStyle.textContent = `
     .odo {
       display: inline-flex;
-      align-items: center;
-      font-family: var(--font-display);
-      font-size: inherit;
-      font-weight: inherit;
-      color: inherit;
-      line-height: 1;
-      letter-spacing: -0.04em;
+      align-items: baseline;
+      gap: 0;
     }
     .odo-digit {
-      display: inline-block;
       position: relative;
-      overflow: hidden;
-      /* height and width set dynamically via JS after first render */
+      display: inline-block;
     }
-    .odo-digit span {
-      display: block;
+    .odo-digit .cur,
+    .odo-digit .next {
+      display: inline-block;
+    }
+    .odo-digit .next {
       position: absolute;
       left: 0; right: 0;
+      top: 0;
       text-align: center;
-      line-height: inherit;
-      white-space: nowrap;
+      opacity: 0;
+      transform: translateY(40%);
     }
-    .odo-digit span.cur  { top: 0; position: relative; }
-    .odo-digit span.next { position: absolute; top: 100%; left: 0; right: 0; }
-    .odo-digit.rolling span.cur  { animation: odo-out 0.35s cubic-bezier(0.4,0,0.2,1) forwards; }
-    .odo-digit.rolling span.next { animation: odo-in  0.35s cubic-bezier(0.4,0,0.2,1) forwards; }
-    @keyframes odo-out {
-      from { transform: translateY(0);    opacity: 1; }
-      to   { transform: translateY(-100%); opacity: 0; }
+    .odo-digit.rolling .cur {
+      animation: odo-cur-out 0.38s cubic-bezier(0.4,0,0.2,1) forwards;
     }
-    @keyframes odo-in {
-      from { transform: translateY(0);   opacity: 0; }
-      to   { transform: translateY(-100%); opacity: 1; }
+    .odo-digit.rolling .next {
+      animation: odo-next-in 0.38s cubic-bezier(0.4,0,0.2,1) forwards;
+    }
+    @keyframes odo-cur-out {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(-50%); }
+    }
+    @keyframes odo-next-in {
+      from { opacity: 0; transform: translateY(40%); }
+      to   { opacity: 1; transform: translateY(0); }
     }
   `;
   document.head.appendChild(_odoStyle);
 
-  // Build an odometer element from a number string
   function buildOdo(str) {
     const wrap = document.createElement("span");
     wrap.className = "odo stat-value";
     for (const ch of str) {
-      const d = document.createElement("span");
+      const d   = document.createElement("span");
       d.className = "odo-digit";
       const cur = document.createElement("span");
       cur.className = "cur";
@@ -236,28 +235,16 @@
       d.appendChild(cur);
       wrap.appendChild(d);
     }
-    // Lock each digit's dimensions after a paint so overflow:hidden
-    // clips correctly without squishing the visible character
-    requestAnimationFrame(() => {
-      wrap.querySelectorAll(".odo-digit").forEach(d => {
-        const r = d.getBoundingClientRect();
-        if (r.width > 0) {
-          d.style.width  = r.width  + "px";
-          d.style.height = r.height + "px";
-        }
-      });
-    });
     return wrap;
   }
 
-  // Update an existing odometer to a new string, animating only changed digits
   function updateOdo(odoEl, newStr) {
     const digits = odoEl.querySelectorAll(".odo-digit");
     const oldStr = Array.from(digits).map(d => d.querySelector(".cur").textContent).join("");
 
-    // If length changed, rebuild from scratch
     if (oldStr.length !== newStr.length) {
       const fresh = buildOdo(newStr);
+      fresh.id = odoEl.id;
       odoEl.replaceWith(fresh);
       return fresh;
     }
@@ -265,16 +252,16 @@
     for (let i = 0; i < newStr.length; i++) {
       const d   = digits[i];
       const cur = d.querySelector(".cur");
-      if (cur.textContent === newStr[i]) continue; // same digit, skip
+      if (cur.textContent === newStr[i]) continue;
 
-      // Create next span and trigger roll
       const next = document.createElement("span");
       next.className = "next";
       next.textContent = newStr[i];
+      // Match width of cur so absolute positioning aligns
+      next.style.width = cur.offsetWidth + "px";
       d.appendChild(next);
       d.classList.add("rolling");
 
-      // After animation: swap cur → next, clean up
       next.addEventListener("animationend", () => {
         cur.textContent = newStr[i];
         next.remove();
@@ -284,17 +271,13 @@
     return odoEl;
   }
 
-  // Init odometer elements (replace plain text divs)
-  const spinsEl   = document.getElementById("stat-spins");
-  const playersEl = document.getElementById("stat-players");
-
+  // Replace stat-value divs with odometer spans
   let odoSpins   = buildOdo("—");
   let odoPlayers = buildOdo("—");
-  spinsEl.replaceWith(odoSpins);
-  playersEl.replaceWith(odoPlayers);
-  // Keep references via id reassignment
-  odoSpins.id   = "stat-spins";
-  odoPlayers.id = "stat-players";
+  odoSpins.id    = "stat-spins";
+  odoPlayers.id  = "stat-players";
+  document.getElementById("stat-spins").replaceWith(odoSpins);
+  document.getElementById("stat-players").replaceWith(odoPlayers);
 
   let prevSpins   = null;
   let prevPlayers = null;
@@ -304,21 +287,20 @@
       const data    = await apiFetch("/api/stats");
       const spins   = data.total_spins || 0;
       const players = data.total_users || 0;
-
       const spinsStr   = fmt(spins);
       const playersStr = fmt(players);
 
       if (prevSpins === null) {
-        // First load: build fresh odometers with real values
+        // First load: build with real values, no animation
         odoSpins   = buildOdo(spinsStr);
         odoPlayers = buildOdo(playersStr);
-        document.getElementById("stat-spins").replaceWith(odoSpins);
-        document.getElementById("stat-players").replaceWith(odoPlayers);
         odoSpins.id   = "stat-spins";
         odoPlayers.id = "stat-players";
+        document.getElementById("stat-spins").replaceWith(odoSpins);
+        document.getElementById("stat-players").replaceWith(odoPlayers);
       } else {
-        updateOdo(odoSpins,   spinsStr);
-        updateOdo(odoPlayers, playersStr);
+        odoSpins   = updateOdo(odoSpins,   spinsStr)   || odoSpins;
+        odoPlayers = updateOdo(odoPlayers, playersStr) || odoPlayers;
       }
 
       prevSpins   = spins;
@@ -337,7 +319,7 @@
   }
 
   loadStats();
-  setInterval(loadStats, 10_000);
+  setInterval(loadStats, 1_000);
 </script>
 </body>
 </html>
